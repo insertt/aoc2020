@@ -14,7 +14,7 @@ fn main() -> Result<()> {
         .map(String::from)
         .collect::<Vec<String>>();
 
-    let key_predicates: Vec<&str> = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+    let required_keys: Vec<&str> = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
 
     let mut passport_data: Vec<String> = Vec::new();
     let mut current_state = String::new();
@@ -44,7 +44,7 @@ fn main() -> Result<()> {
             .map(|element| element.split(':').next().unwrap())
             .collect::<Vec<&str>>();
 
-        let found = key_predicates
+        let found = required_keys
             .iter()
             .all(|req_key| split.iter().any(|key| key == req_key));
 
