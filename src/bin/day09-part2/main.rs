@@ -19,9 +19,8 @@ fn main() -> Result<()> {
 
         let found = preamble
             .iter()
-            .cartesian_product(preamble)
-            .filter(|(a, b)| a != b)
-            .any(|(a, b)| a + b == *number);
+            .map(|n| number - n)
+            .any(|n| preamble.contains(&n));
 
         if !found {
             println!(
@@ -41,8 +40,7 @@ fn main() -> Result<()> {
 
             if sum == target_number {
                 let subarray = &numbers[i + 1..=j];
-                let min = subarray.iter().min().unwrap();
-                let max = subarray.iter().max().unwrap();
+                let (min, max) = subarray.iter().minmax().into_option().unwrap();
 
                 println!("Found subarray that sums to a {}! If you'd sum smallest and largest number in this subarray, you'd get: {}", target_number, min + max);
                 return Ok(());
